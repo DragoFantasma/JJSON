@@ -1,9 +1,7 @@
 # JJSON
 Guides
 * [Guides](https://github.com/DragoFantasma/JJSON#guides)
-* [Known limitations](https://github.com/DragoFantasma/JJSON#known-limitations)
 * [Code examples](https://github.com/DragoFantasma/JJSON#code-examples)
-* [TODO](https://github.com/DragoFantasma/JJSON#TODO)
 
 
 A simple library to load JSON document written in Java.<br>
