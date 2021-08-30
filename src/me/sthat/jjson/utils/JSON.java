@@ -69,7 +69,7 @@ public class JSON {
             throw new IllegalArgumentException("No valid source were specified to load " + string);
         }
 
-        return JSONParser.jsonFromString(jsonString);
+        return jsonString != null ? JSONParser.jsonFromString(jsonString) : null;
     }
 
     /**

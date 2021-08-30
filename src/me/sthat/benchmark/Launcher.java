@@ -68,7 +68,7 @@ public class Launcher {
     }
 
     public static void main(String[] args) {
-        final String path = "path/to/the/document";
+        final String path = "/home/sthat/Desktop/invalid.json";
 
         /* Measures the time took */
         long start = System.nanoTime();

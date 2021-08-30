@@ -137,7 +137,7 @@ public class JSONParser {
         } while (!source.end() && source.getChar() == '"');
 
         if (source.getChar() != '}') {
-            throw new JSONUnexpectedToken("Missing closing bracket or comma after value declaration, found " + source.getChar() + " instead");
+            throw new JSONUnexpectedToken("Missing closing bracket or comma after value declaration, found " + source.getChar() + " instead. Missing quote?");
         }
 
         source.next();
@@ -152,24 +152,24 @@ public class JSONParser {
 
         JSONArray array = new JSONArray();
 
-        while (source.getChar() != ']') {
-            JSONIElement element = jsonParseNextItem(source);
-
-            if (source.getChar() == ',') {
-                source.next();
-                array.append(element);
-            } else if (source.getChar() != ']') {
-                char c = source.getChar();
-                for (int i = 0; i < 64; ++i) {
-                    System.out.print(source.nextChar());
-                }
-                System.out.println();
-                throw new JSONUnexpectedToken("Expected a comma to separate array elements, found " + c + " instead");
-            }
+        if (source.getChar() == ']') {
+            source.next();
+            return array;
         }
 
-        /* Skip closing square bracket */
-        source.next();
+        char ch = source.getChar();
+        do {
+            if (ch == ',' && source.getChar() == ']') {
+                throw new JSONUnexpectedToken("Unexpected comma before ']'.");
+            }
+            JSONIElement element = jsonParseNextItem(source);
+            array.append(element);
+        } while ((ch = source.nextChar()) == ',');
+
+        if (ch != ']') {
+            System.out.println("Found char " + ch);
+            throw new JSONUnexpectedToken("Missing closing square bracket.");
+        }
 
         return array;
     }
