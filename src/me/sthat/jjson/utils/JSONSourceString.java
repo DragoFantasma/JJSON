@@ -60,7 +60,7 @@ public class JSONSourceString {
         virOffset = offset;
     }
 
-    public boolean assertNextChar(char c) {
+    public boolean assertNextCharIs(char c) {
         return nextChar() == c;
     }
 

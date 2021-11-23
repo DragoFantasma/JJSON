@@ -41,4 +41,8 @@ public class JSONString extends JSONAbstractValue<String> {
         return "String";
     }
 
+    public JSONType getElementType() {
+        return JSONType.STRING;
+    }
+
 }

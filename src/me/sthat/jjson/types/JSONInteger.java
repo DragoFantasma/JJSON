@@ -40,4 +40,8 @@ public class JSONInteger extends JSONAbstractValue<Long> {
     public String getType() {
         return "Integer";
     }
+
+    public JSONType getElementType() {
+        return JSONType.INTEGER;
+    }
 }

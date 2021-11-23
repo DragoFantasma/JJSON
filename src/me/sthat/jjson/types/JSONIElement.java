@@ -40,7 +40,10 @@ public interface JSONIElement {
 
     void stringify(FileWriter writer, int indentation, int currIndentation) throws IOException;
     void print(int indentation, int currIndentation);
+
+    @Deprecated
     String getType();
+    JSONType getElementType();
 
     String asString();
     long asLong();

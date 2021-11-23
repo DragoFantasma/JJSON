@@ -41,4 +41,8 @@ public class JSONDouble extends JSONAbstractValue<Double> {
         return "Double";
     }
 
+    public JSONType getElementType() {
+        return JSONType.DOUBLE;
+    }
+
 }

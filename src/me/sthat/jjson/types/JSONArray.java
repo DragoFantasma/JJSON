@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 /*
  * MIT License
@@ -54,12 +56,12 @@ public class JSONArray implements JSONIContainer<List<JSONIElement>>, Iterable<J
         return this;
     }
 
-    public long length() {
+    public long size() {
         return list.size();
     }
 
     public boolean isEmpty() {
-        return length() == 0;
+        return size() == 0;
     }
 
     public void clear() {
@@ -122,8 +124,16 @@ public class JSONArray implements JSONIContainer<List<JSONIElement>>, Iterable<J
         return list.iterator();
     }
 
+    public Stream<JSONIElement> stream() {
+        return list.stream();
+    }
+
     public String getType() {
         return "Array";
+    }
+
+    public String toString() {
+        return String.valueOf(list);
     }
 
     public boolean equals(Object o) {
@@ -131,6 +141,10 @@ public class JSONArray implements JSONIContainer<List<JSONIElement>>, Iterable<J
         if (o == null || getClass() != o.getClass()) return false;
         JSONArray other = (JSONArray) o;
         return list.equals(other.list);
+    }
+
+    public JSONType getElementType() {
+        return JSONType.ARRAY;
     }
 
     public int hashCode() {

@@ -63,6 +63,8 @@ public class JSONParser {
                 char c;
                 source.resetVirOffset();
                 boolean dotSeen = false;
+                boolean isNegative = false;
+                boolean signSeen = false;
 
                 /*
                  * Let Integer.parseInt and Double.parseDouble handles scientific notation and hex numbers
@@ -85,11 +87,21 @@ public class JSONParser {
                         }
                         dotSeen = true;
                     }
-                    else if (!isHexDigit(c)) {
-                        for (int i = 0; i < 16; ++i) {
-                            System.out.print(source.nextChar());
+                    else if (c == '-') {
+                        if (isNegative) {
+                            throw new JSONUnexpectedToken("Found double '-' while expecting a number");
                         }
-                        System.out.println();
+                        isNegative = true;
+                        signSeen = true;
+                    }
+                    else if (c == '+') {
+                        if (signSeen) {
+                            throw new JSONUnexpectedToken("Found double '+' while expecting a number");
+                        }
+
+                        signSeen = true;
+                    }
+                    else if (!isHexDigit(c)) {
                         throw new JSONUnexpectedToken("Character " + c + " is not a valid decimal or hex digit");
                     }
                     if (!source.end()) {
@@ -104,7 +116,7 @@ public class JSONParser {
     }
 
     public static JSONObject jsonParseObject(JSONSourceString source) {
-        if (!source.assertNextChar('{')) {
+        if (!source.assertNextCharIs('{')) {
             throw new JSONUnexpectedToken("JSON Object must starts with a '{'.");
         }
 
@@ -146,7 +158,7 @@ public class JSONParser {
     }
 
     public static JSONArray jsonParseArray(JSONSourceString source) {
-        if (!source.assertNextChar('[')) {
+        if (!source.assertNextCharIs('[')) {
             throw new JSONUnexpectedToken("JSON Object must starts with a '{'.");
         }
 
@@ -175,7 +187,7 @@ public class JSONParser {
     }
 
     public static JSONString jsonParseString(JSONSourceString source) {
-        if (!source.assertNextChar('"')) {
+        if (!source.assertNextCharIs('"')) {
             throw new JSONUnexpectedToken("JSON Object must starts with a '{'.");
         }
 
@@ -234,8 +246,10 @@ public class JSONParser {
             source.next();
         }
 
-        if (!builder.toString().equals("null"))
-            throw new JSONUnexpectedToken("Invalid token \"" + builder.toString() + "\".");
+        String str = builder.toString();
+
+        if (!str.equals("null"))
+            throw new JSONUnexpectedToken("Invalid token \"" + str + "\".");
 
         return new JSONNull();
     }

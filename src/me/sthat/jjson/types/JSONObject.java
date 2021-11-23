@@ -9,6 +9,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /*
  * MIT License
@@ -93,12 +96,24 @@ public class JSONObject implements JSONIContainer<Map<String, JSONIElement>>, It
         return this;
     }
 
-    public long length() {
+    public long size() {
         return map.size();
     }
 
     public boolean isEmpty() {
-        return length() == 0;
+        return size() == 0;
+    }
+
+    public String toString() {
+        return String.valueOf(map.toString());
+    }
+
+    public Stream<String> keyStream() {
+        return map.keySet().stream();
+    }
+
+    public Stream<JSONIElement> valueStream() {
+        return map.values().stream();
     }
 
     public void clear() {
@@ -201,6 +216,10 @@ public class JSONObject implements JSONIContainer<Map<String, JSONIElement>>, It
         if (o == null || getClass() != o.getClass()) return false;
         JSONObject other = (JSONObject) o;
         return map.equals(other.map);
+    }
+
+    public JSONType getElementType() {
+        return JSONType.OBJECT;
     }
 
     public int hashCode() {

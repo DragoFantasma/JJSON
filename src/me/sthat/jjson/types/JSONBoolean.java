@@ -41,4 +41,8 @@ public class JSONBoolean extends JSONAbstractValue<Boolean> {
         return "Boolean";
     }
 
+    public JSONType getElementType() {
+        return JSONType.BOOLEAN;
+    }
+
 }

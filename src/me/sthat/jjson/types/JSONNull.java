@@ -40,4 +40,8 @@ public class JSONNull extends JSONAbstractValue<Object> {
     public String getType() {
         return "Null";
     }
+
+    public JSONType getElementType() {
+        return JSONType.NULL;
+    }
 }

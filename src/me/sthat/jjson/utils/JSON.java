@@ -117,11 +117,12 @@ public class JSON {
                 builder.append(c);
         }
 
+        reader.close();
+
         if (isString) {
             throw new JSONBadFormat("Missing closing quote");
         }
 
-        reader.close();
         return builder.toString();
     }
 

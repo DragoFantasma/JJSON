@@ -2,6 +2,10 @@ package me.sthat.jjson.types;
 
 import me.sthat.jjson.exceptions.JSONTypeMismatch;
 
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
 /*
  * MIT License
  *
@@ -35,7 +39,7 @@ import me.sthat.jjson.exceptions.JSONTypeMismatch;
  */
 public interface JSONIContainer<T> extends JSONIValue<T> {
 
-    long length();
+    long size();
     boolean isEmpty();
     void clear();
 

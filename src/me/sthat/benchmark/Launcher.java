@@ -40,6 +40,10 @@ import java.io.IOException;
 
 public class Launcher {
 
+
+
+
+
     public static void printToFile(String file) {
         /* Create a new JSON and add some values to it */
         JSONObject json = new JSONObject();
@@ -68,7 +72,8 @@ public class Launcher {
     }
 
     public static void main(String[] args) {
-        final String path = "/home/sthat/Desktop/invalid.json";
+        //final String path = "/home/sthat/Desktop/invalid.json";
+        final String path = "/mnt/ddrive/info/dev/workspace/jjson/pview.json";
 
         /* Measures the time took */
         long start = System.nanoTime();
@@ -83,6 +88,7 @@ public class Launcher {
 
 
         /* Check type before casting */
+        /*
         if (element instanceof JSONObject) {
             JSONIElement value = element.asObject().get("ground.3.0");
             if (value == null) {
@@ -95,5 +101,11 @@ public class Launcher {
                 System.out.println("Value = " + value.asLong());
             }
         }
+        */
+        if (element instanceof JSONObject) {
+            JSONObject object = element.asObject();
+            object.forEach(key -> System.out.println(key + ": " + object.get(key)));
+        }
+
     }
 }
